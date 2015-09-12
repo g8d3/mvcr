@@ -2,9 +2,14 @@ head
   title mvcr
 
 body
-  +templ
-  +quickForm collection="collections" id="insertCollectionForm" type="insert"
-  +tabular table=tables.collections class='table'
+  .container
+    .row
+      +templ
+      each cs
+        h1= this.c
+        +quickForm collection=this.co id=this.f type="insert"
+        +tabular table=this.t class='table'
+        hr
 
 template(name='templ')
   h1 works

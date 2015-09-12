@@ -2,6 +2,9 @@ cs =
   collections:
     name:
       type: String
+    created_at:
+      optional: true
+      type: Date
   views:
     name:
       type: String
@@ -18,13 +21,22 @@ schema = (col, sch) ->
   col.attachSchema(new SimpleSchema(sch))
 
 table = (name, opts = {}) ->
+  cols = _(cs[name]).map (sch,c) -> data: c, title: c
   new Tabular.Table _(opts).extend(
     name: name, collection: this[name],
-    columns: []
+    columns: cols
   )
 
 for own c, sch of cs
   this[c] = new Meteor.Collection(c)
   schema this[c], sch 
+  # this["#{c}_table"] = table c
   tables[c] = table c
+
+if Meteor.isClient
+  Template.registerHelper('tables', tables)
+  # Template.registerHelper('t', (c) -> tables[c])
+  Template.registerHelper('cs', _(cs).map((sch, c)->
+    c: c, t: tables[c], f: "#{c}_form", co: this[c]
+  ))
 
