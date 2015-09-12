@@ -24,8 +24,10 @@ schema = (col, sch) ->
 table = (name, opts = {}) ->
   cols = _(cs[name]).map (sch,c) -> data: c, title: c
   new Tabular.Table _(opts).extend(
-    name: name, collection: this[name],
+    name: name
+    collection: this[name]
     columns: cols
+    
   )
 
 for own c, sch of cs
