@@ -2,8 +2,9 @@ cs =
   collections:
     name:
       type: String
-    created_at:
-      optional: true
+    createdAt:
+      type: Date
+    updatedAt:
       type: Date
   views:
     name:
@@ -29,6 +30,7 @@ table = (name, opts = {}) ->
 
 for own c, sch of cs
   this[c] = new Meteor.Collection(c)
+  this[c].attachBehaviour('timestampable')
   schema this[c], sch 
   # this["#{c}_table"] = table c
   tables[c] = table c

@@ -14,3 +14,5 @@ aldeed:tabular
 aldeed:autoform
 aldeed:collection2
 twbs:bootstrap
+zimme:collection-behaviours
+zimme:collection-timestampable
